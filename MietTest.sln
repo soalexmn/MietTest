@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MietTest", "KovchegSite\MietTest.csproj", "{EDE3B8B9-B4E2-48FD-BDAB-68CDE9F9AC9F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MietTest", "src\MietTest\MietTest.csproj", "{EDE3B8B9-B4E2-48FD-BDAB-68CDE9F9AC9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbLayer", "DbLayer\DbLayer.csproj", "{836DE77F-9218-4DCF-93EE-C33996B4F337}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbLayer", "src\DbLayer\DbLayer.csproj", "{836DE77F-9218-4DCF-93EE-C33996B4F337}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8ADDEE79-A56C-4C56-8C44-0831D5973B5D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{7E3B85E7-2000-41AA-8876-916C06F82A57}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MietTest.Tests", "MietTest.Tests\MietTest.Tests.csproj", "{537178A0-0263-45DC-98CE-9F5699ADF0BD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MietTest.Tests", "test\MietTest.Tests\MietTest.Tests.csproj", "{537178A0-0263-45DC-98CE-9F5699ADF0BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
