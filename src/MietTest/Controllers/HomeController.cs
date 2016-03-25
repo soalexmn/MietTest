@@ -3,13 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DbLayer.Contexts;
 
-namespace KovchegSite.Controllers
+namespace MietTest.Controllers
 {
     public class HomeController : Controller
     {
         public ActionResult Index()
         {
+
+            using (var context = new MainContext())
+            {
+                context.Tests.ToArray();
+            }
             return View();
         }
 

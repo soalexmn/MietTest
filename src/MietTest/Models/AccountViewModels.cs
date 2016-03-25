@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace KovchegSite.Models
+namespace MietTest.Models
 {
     public class ExternalLoginConfirmationViewModel
     {
@@ -46,24 +46,26 @@ namespace KovchegSite.Models
         public string Email { get; set; }
     }
 
+
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Адрес электронной почты")]
-        [EmailAddress]
-        public string Email { get; set; }
-
+        [Display(Name = "Логин")]
+        public string Name { get; set; }
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Пароль")]
         public string Password { get; set; }
-
         [Display(Name = "Запомнить меня")]
         public bool RememberMe { get; set; }
     }
 
     public class RegisterViewModel
     {
+        [Required]
+        [Display(Name = "Логин")]
+        public string Login { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Адрес электронной почты")]

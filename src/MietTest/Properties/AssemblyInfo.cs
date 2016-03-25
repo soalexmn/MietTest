@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Управление общими сведениями о сборке осуществляется следующим образом
 // набора атрибутов. Измените значения этих атрибутов для изменения сведений,
 // связанных с этой сборкой.
-[assembly: AssemblyTitle("KovchegSite")]
+[assembly: AssemblyTitle("MietTest")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("KovchegSite")]
+[assembly: AssemblyProduct("MietTest")]
 [assembly: AssemblyCopyright("© , 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

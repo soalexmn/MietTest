@@ -6,43 +6,45 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using KovchegSite.Models;
+using MietTest.Infrastructure;
+using MietTest.Models;
+using MietTest.Controllers;
 
-namespace KovchegSite.Controllers
+namespace MietTest.Controllers
 {
     [Authorize]
     public class ManageController : Controller
     {
-        private ApplicationSignInManager _signInManager;
-        private ApplicationUserManager _userManager;
+        private IAuthenticationManager _signInManager;
+        private MietUserManager _userManager;
 
         public ManageController()
         {
         }
 
-        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public ManageController(MietUserManager userManager, IAuthenticationManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
         }
 
-        public ApplicationSignInManager SignInManager
+        public IAuthenticationManager SignInManager
         {
             get
             {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+                return _signInManager ?? HttpContext.GetOwinContext().Authentication;
             }
             private set 
             { 
                 _signInManager = value; 
             }
         }
-
-        public ApplicationUserManager UserManager
+        //саша дурачёк
+        public MietUserManager UserManager
         {
             get
             {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<MietUserManager>();
             }
             private set
             {
@@ -88,7 +90,11 @@ namespace KovchegSite.Controllers
                 var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
                 if (user != null)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    //SignInManager.SignIn(user, isPersistent: false, rememberBrowser: false);
+                    SignInManager.SignIn(new AuthenticationProperties
+                    {
+                        IsPersistent = true
+                    }, await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie));
                 }
                 message = ManageMessageId.RemoveLoginSuccess;
             }
@@ -140,7 +146,11 @@ namespace KovchegSite.Controllers
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             if (user != null)
             {
-                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                SignInManager.SignIn(new AuthenticationProperties
+                {
+                    IsPersistent = true
+                }, await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie));
             }
             return RedirectToAction("Index", "Manage");
         }
@@ -155,7 +165,11 @@ namespace KovchegSite.Controllers
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             if (user != null)
             {
-                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                SignInManager.SignIn(new AuthenticationProperties
+                {
+                    IsPersistent = true
+                }, await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie));
             }
             return RedirectToAction("Index", "Manage");
         }
@@ -185,7 +199,11 @@ namespace KovchegSite.Controllers
                 var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
                 if (user != null)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    SignInManager.SignIn(new AuthenticationProperties
+                    {
+                        IsPersistent = true
+                    }, await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie));
                 }
                 return RedirectToAction("Index", new { Message = ManageMessageId.AddPhoneSuccess });
             }
@@ -206,7 +224,11 @@ namespace KovchegSite.Controllers
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             if (user != null)
             {
-                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                SignInManager.SignIn(new AuthenticationProperties
+                {
+                    IsPersistent = true
+                }, await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie));
             }
             return RedirectToAction("Index", new { Message = ManageMessageId.RemovePhoneSuccess });
         }
@@ -234,7 +256,11 @@ namespace KovchegSite.Controllers
                 var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
                 if (user != null)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    SignInManager.SignIn(new AuthenticationProperties
+                    {
+                        IsPersistent = true
+                    }, await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie));
                 }
                 return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
             }
@@ -263,7 +289,11 @@ namespace KovchegSite.Controllers
                     var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
                     if (user != null)
                     {
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        SignInManager.SignIn(new AuthenticationProperties
+                        {
+                            IsPersistent = true
+                        }, await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie));
                     }
                     return RedirectToAction("Index", new { Message = ManageMessageId.SetPasswordSuccess });
                 }
