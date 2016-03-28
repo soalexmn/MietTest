@@ -7,6 +7,11 @@ using System.Threading.Tasks;
 
 namespace DbLayer.Entities
 {
+    public enum QuestionType : int
+    {
+        One = 0,
+        Multi = 1
+    }
     public class Question
     {
         public Question()
@@ -17,6 +22,8 @@ namespace DbLayer.Entities
         public int Id { get; set; }
 
         public string Body { get; set; }
+
+        public QuestionType QuestionType { get; set; }
 
         public ICollection<AnswerVariant> AnswerVariants { get; set; }
     }

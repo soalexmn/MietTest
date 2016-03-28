@@ -1,4 +1,6 @@
-﻿using Ninject;
+﻿using DbLayer.Interfaces;
+using DbLayer.Repositories;
+using Ninject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +33,7 @@ namespace MietTest.Infrastructure
         private void AddBindings()
         {
             //Здесь размещаются привязки
-
+            kernel.Bind(typeof(IGenericRepository<>)).To(typeof(EfGenericRepository<>));
 
         }
     }

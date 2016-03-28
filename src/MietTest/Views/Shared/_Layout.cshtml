@@ -1,13 +1,16 @@
 ﻿<!DOCTYPE html>
-<html>
+<html ng-app="mietTestApp" lang="ru">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title – приложение ASP.NET</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-
+    <title>@ViewBag.Title – тестирование</title>
+    <link rel="icon" type="image/x-icon" href="~/favicon.ico" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    @Styles.Render("~/Bundles/css/main")
+    @Scripts.Render("~/Bundles/js/main")
+    <script src="~/app/mietTestApp.js"></script>
+    @Scripts.Render("~/Bundles/js/app")
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -18,13 +21,23 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Имя приложения", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @*@Html.ActionLink("Имя приложения", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+                <a class="navbar-brand" href="@Url.Action("Index", "Home", new {area="" })"><span style="font-size:large" class="glyphicon glyphicon-home"> </span></a>
+
             </div>
-            <div class="navbar-collapse collapse">
+            <div class="collapse navbar-collapse " id="responsive-menu">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Домашняя страница", "Index", "Home")</li>
+                    @*<li>@Html.ActionLink("Домашняя страница", "Index", "Home")</li>*@
                     <li>@Html.ActionLink("О программе", "About", "Home")</li>
-                    <li>@Html.ActionLink("Контакт", "Contact", "Home")</li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Тесты <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Новый тест", "Create", "Test", new { area = "" }, null)</li>
+                            @*<li class="divider"></li>*@
+                            @*<li>@Html.ActionLink("Добавить заказчика", "Customer", "Customer", new { area = "" }, null)</li>*@
+                        </ul>
+                    </li>
+                    @*<li>@Html.ActionLink("Контакт", "Contact", "Home")</li>*@
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -32,14 +45,9 @@
     </div>
     <div class="container body-content">
         @RenderBody()
-        <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year – приложение ASP.NET</p>
+            <p>&copy; @DateTime.Now.Year – Платформа для тестирования.</p>
         </footer>
     </div>
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
 </body>
 </html>

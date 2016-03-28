@@ -1,0 +1,13 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title"><span class="glyphicon glyphicon-alert"></span></h3>
+</div>
+<div class="modal-body">
+    <h5>{{modalMessage}}</h5>
+    <div class="form-group">
+        <input type="datetime" class="form-control" ng-model="password" datepicker-popup="dd.MM.yyyy" is-open="beginOpen" ng-click="open($event); beginOpen = ! beginOpen; " />
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">Да</button>
+    <button class="btn btn-warning" ng-click="cancel()">Отмена</button>
+</div>

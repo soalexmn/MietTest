@@ -187,12 +187,21 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\Generic\GenericService.js" />
+    <Content Include="app\mietTestApp.js" />
+    <Content Include="app\Modal\ModalController.js" />
+    <Content Include="app\Modal\modalCustomDeleteDialog.html" />
+    <Content Include="app\Modal\modalDeleteDialog.html" />
+    <Content Include="app\Modal\modalDeleteDialogPass.html" />
+    <Content Include="app\Modal\modalInputDialog.html" />
+    <Content Include="app\Test\TestCreateController.js" />
     <Content Include="App_Data\miet-test-db.mdf" />
     <Content Include="App_Data\miet-test-db_log.ldf">
       <DependentUpon>miet-test-db.mdf</DependentUpon>
     </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\ui-bootstrap-csp.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -204,6 +213,8 @@
     <Content Include="Scripts\angular-cookies.js" />
     <Content Include="Scripts\angular-cookies.min.js" />
     <Content Include="Scripts\angular-csp.css" />
+    <Content Include="Scripts\angular-filters.js" />
+    <Content Include="Scripts\angular-filters.min.js" />
     <Content Include="Scripts\angular-loader.js" />
     <Content Include="Scripts\angular-loader.min.js" />
     <Content Include="Scripts\angular-message-format.js" />
@@ -220,6 +231,10 @@
     <Content Include="Scripts\angular-scenario.js" />
     <Content Include="Scripts\angular-touch.js" />
     <Content Include="Scripts\angular-touch.min.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.min.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -1028,10 +1043,9 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Scripts\version.json" />
+    <Content Include="Views\Test\Create.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Test\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

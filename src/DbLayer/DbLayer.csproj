@@ -82,6 +82,10 @@
     <Compile Include="Migrations\201603251430095_addMainEntities.Designer.cs">
       <DependentUpon>201603251430095_addMainEntities.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603281447288_updateEntities.cs" />
+    <Compile Include="Migrations\201603281447288_updateEntities.Designer.cs">
+      <DependentUpon>201603281447288_updateEntities.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\EfGenericRepository.cs" />
@@ -100,6 +104,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603251430095_addMainEntities.resx">
       <DependentUpon>201603251430095_addMainEntities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603281447288_updateEntities.resx">
+      <DependentUpon>201603281447288_updateEntities.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

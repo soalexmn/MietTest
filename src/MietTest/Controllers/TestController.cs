@@ -1,6 +1,9 @@
-﻿using System;
+﻿using DbLayer.Entities;
+using DbLayer.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -8,9 +11,10 @@ namespace MietTest.Controllers
 {
     public class TestController : Controller
     {
-        public TestController()
+        private IGenericRepository<Test> _repository;
+        public TestController(IGenericRepository<Test> repository)
         {
-
+            _repository = repository;
         }
         // GET: Test
         public ActionResult Create()
@@ -18,9 +22,11 @@ namespace MietTest.Controllers
             return View();
         }
 
-        public ActionResult AddTest()
+        public async Task<ActionResult> CreateTest(Test test)
         {
-            return null;
+            _repository.Add(test);
+            await _repository.SaveChangesAsync();
+            return Json(test);
         }
     }
 }

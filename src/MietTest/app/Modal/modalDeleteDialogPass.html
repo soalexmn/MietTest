@@ -1,0 +1,14 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title"><span class="glyphicon glyphicon-alert"></span></h3>
+</div>
+<div class="modal-body">
+    <h5>Вы точно хотите удалить {{modalMessage}} ?</h5>
+    <div class="form-group">
+        <label> Для подтверждения действия введите пароль:</label>
+        <input type="password" class="form-control" ng-model="password" />
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">Да</button>
+    <button class="btn btn-warning" ng-click="cancel()">Отмена</button>
+</div>
