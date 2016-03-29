@@ -1,21 +1,27 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DbLayer.Contexts;
+using DbLayer.Entities;
+using DbLayer.Interfaces;
+using System.Threading.Tasks;
 
 namespace MietTest.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        private IGenericRepository<Test> _repository;
+        public HomeController(IGenericRepository<Test> repository)
         {
-
-            using (var context = new MainContext())
-            {
-                context.Tests.ToArray();
-            }
+            _repository = repository;
+        }
+        public async Task<ActionResult> Index()
+        {
+            var tests = await _repository.GetAll().ToArrayAsync();
+            ViewBag.Tests = tests;
             return View();
         }
 

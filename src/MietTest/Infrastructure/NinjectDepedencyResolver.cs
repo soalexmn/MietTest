@@ -1,5 +1,6 @@
 ﻿using DbLayer.Interfaces;
 using DbLayer.Repositories;
+using MietTest.TestCache;
 using Ninject;
 using System;
 using System.Collections.Generic;
@@ -33,6 +34,9 @@ namespace MietTest.Infrastructure
         private void AddBindings()
         {
             //Здесь размещаются привязки
+            kernel.Bind<ITestRepository>().To<EfTestRepository>();
+            kernel.Bind<ITestCache>().To<TestMemoryCache>().InSingletonScope();
+
             kernel.Bind(typeof(IGenericRepository<>)).To(typeof(EfGenericRepository<>));
 
         }

@@ -13,7 +13,7 @@ function testCreateController($scope, $window, genericService) {
     }
 
     $scope.addVariant = function () {
-        $scope.currentQuestion.AnswerVariants.push({});
+        $scope.currentQuestion.AnswerVariants.push({ Body:"" });
     };
 
     $scope.removeVariant = function (index) {
@@ -33,7 +33,7 @@ function testCreateController($scope, $window, genericService) {
         genericService.customQuery('/Test/createTest', $scope.test).then(
                 function (results) {
                     // on success
-                    $window.location.href = "";
+                    $window.location.href = "/";
                 },
                 function (results) {
                     // on error

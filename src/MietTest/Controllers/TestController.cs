@@ -1,5 +1,7 @@
 ﻿using DbLayer.Entities;
 using DbLayer.Interfaces;
+using MietTest.Models;
+using MietTest.TestCache;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,22 +13,82 @@ namespace MietTest.Controllers
 {
     public class TestController : Controller
     {
-        private IGenericRepository<Test> _repository;
-        public TestController(IGenericRepository<Test> repository)
+        private ITestRepository _repository;
+        private ITestCache _cache;
+
+        public TestController(ITestRepository repository, ITestCache cache)
         {
             _repository = repository;
+            _cache = cache;
         }
-        // GET: Test
+        // GET: Test/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
         }
 
+        [Authorize]
         public async Task<ActionResult> CreateTest(Test test)
         {
-            _repository.Add(test);
+            _repository.Add(test,this.User.Identity.Name);
             await _repository.SaveChangesAsync();
             return Json(test);
+        }
+
+        [OutputCache(Duration=0,NoStore=true,VaryByParam="none")]
+        [Authorize]
+        public ActionResult Start(int id)
+        {
+            Guid guid = _cache.StartNewTest(this.User.Identity.Name);
+            return Redirect(String.Concat("~/Test/Do?id=",id,"&s=",guid));
+        }
+
+        [Authorize]
+        public ActionResult Do(int id, Guid s)
+        {
+            ViewBag.Id = id;
+            ViewBag.Guid = s;
+            return View();
+        }
+
+        [Authorize]
+        [OutputCache(Duration = 0, NoStore = true, VaryByParam = "none")]
+        public ActionResult GetTest(int id)
+        {
+           Test test = _repository.GetFullTest(id);
+           return Json(test, JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize]
+        [OutputCache(Duration = 0, NoStore = true, VaryByParam = "none")]
+        public ActionResult GetTestResult(Guid s)
+        {
+            try
+            {
+                TestResult test = _cache.GetTest(s, this.User.Identity.Name);
+                return Json(test,JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception e)
+            {
+                Response.StatusCode = 500;
+                return Json(e.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [Authorize]
+        public ActionResult UpdateTestResult(TestUpdateViewModel model)
+        {
+            try
+            {
+                TestResult test = _cache.UpdateTest(model.Guid, this.User.Identity.Name, model.Test);
+                return Json(test);
+            }
+            catch (Exception e)
+            {
+                Response.StatusCode = 500;
+                return Json(e.Message);
+            }
         }
     }
 }

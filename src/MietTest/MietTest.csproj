@@ -183,8 +183,12 @@
     <Compile Include="Infrastructure\MietUserManager.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\TestViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="TestCache\CacheValueModel.cs" />
+    <Compile Include="TestCache\ITestCache.cs" />
+    <Compile Include="TestCache\TestMemoryCache.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\Generic\GenericService.js" />
@@ -194,6 +198,7 @@
     <Content Include="app\Modal\modalDeleteDialog.html" />
     <Content Include="app\Modal\modalDeleteDialogPass.html" />
     <Content Include="app\Modal\modalInputDialog.html" />
+    <Content Include="app\Test\testDoController.js" />
     <Content Include="app\Test\TestCreateController.js" />
     <Content Include="App_Data\miet-test-db.mdf" />
     <Content Include="App_Data\miet-test-db_log.ldf">
@@ -1007,7 +1012,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -1044,6 +1051,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Scripts\version.json" />
     <Content Include="Views\Test\Create.cshtml" />
+    <Content Include="Views\Test\Do.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

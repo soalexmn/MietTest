@@ -26,5 +26,7 @@ namespace DbLayer.Entities
         public QuestionType QuestionType { get; set; }
 
         public ICollection<AnswerVariant> AnswerVariants { get; set; }
+
+        public string Result { get; set; }
     }
 }
