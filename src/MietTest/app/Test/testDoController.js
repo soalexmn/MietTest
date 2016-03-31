@@ -7,8 +7,9 @@ function testDoController($scope, $window, genericService) {
 
     $scope.testId = -1;
     $scope.guid = "";
-
+    $scope.selected = {};
     $scope.currentQuestion = {};
+    $scope.currentQuestionResult = {};
     $scope.currentIndex = -1;
 
     $scope.initialLoad = function (id, guid) {
@@ -21,6 +22,7 @@ function testDoController($scope, $window, genericService) {
     $scope.changeIndex = function (index) {
         $scope.currentIndex = index;
         $scope.currentQuestion = $scope.test.Questions[index];
+        $scope.currentQuestionResult = $scope.testResult.QuestionResults[index];
     }
 
     $scope.copyObject = function (object) {

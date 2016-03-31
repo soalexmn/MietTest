@@ -57,6 +57,10 @@ namespace MietTest.Controllers
         public ActionResult GetTest(int id)
         {
            Test test = _repository.GetFullTest(id);
+           foreach (var question in test.Questions)
+           {
+               question.Result = string.Empty;
+           }
            return Json(test, JsonRequestBehavior.AllowGet);
         }
 

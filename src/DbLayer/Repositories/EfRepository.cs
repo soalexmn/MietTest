@@ -1,4 +1,5 @@
 ﻿using DbLayer.Contexts;
+using DbLayer.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DbLayer.Repositories
 {
-    public class EfRepository
+    public class EfRepository : IRepository
     {
         protected MainContext _context = new MainContext();
 
@@ -39,6 +40,12 @@ namespace DbLayer.Repositories
         public void Dispose()
         {
             if (_context != null) _context.Dispose();
+        }
+
+
+        public void SetContext(MainContext context)
+        {
+            _context = context;
         }
     }
 }

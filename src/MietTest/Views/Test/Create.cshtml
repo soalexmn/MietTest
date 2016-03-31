@@ -43,9 +43,6 @@
                             <table class="table">
                                 <tr ng-repeat="variant in currentQuestion.AnswerVariants">
                                     <td>
-                                        <input type="checkbox" ng-model=""/>
-                                    </td>
-                                    <td>
                                         <input class="form-control" type="text" ng-model="variant.Body" />
                                     </td>
                                     <td>
@@ -54,6 +51,14 @@
                                 </tr>
                             </table>
                             <button class="btn btn-primary btn-sm" ng-click="addVariant()">Добавить вариант ответа</button>
+                        </div>
+                        <div class="col-lg-1 col-md-0 col-sm-0"></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-1 col-md-1 col-sm-0"></div>
+                        <label class="col-lg-3 col-md-3 col-sm-4 control-label">Правильный ответ(ы)</label>
+                        <div class="col-sm-8 col-lg-6 col-md-6">
+                            <input type="text" class="form-control" ng-model="currentQuestion.Result" />
                         </div>
                         <div class="col-lg-1 col-md-0 col-sm-0"></div>
                     </div>

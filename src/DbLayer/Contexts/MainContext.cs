@@ -16,6 +16,10 @@ namespace DbLayer.Contexts
         {
         }
 
+        public MainContext(string nameOrConnectionString) : base(nameOrConnectionString)
+        {
+        }
+
         public static MainContext Create()
         {
             return new MainContext();

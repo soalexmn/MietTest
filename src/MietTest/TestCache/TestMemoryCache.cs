@@ -7,7 +7,7 @@ using System.Web;
 
 namespace MietTest.TestCache
 {
-    internal class TestMemoryCache : ITestCache
+    public class TestMemoryCache : ITestCache
     {
         private ConcurrentDictionary<Guid, CacheValueModel> _dictionary = new ConcurrentDictionary<Guid, CacheValueModel>();
 
