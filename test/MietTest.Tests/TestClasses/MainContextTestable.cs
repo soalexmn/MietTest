@@ -10,10 +10,11 @@ namespace MietTest.Tests.TestClasses
 {
     public class MainContextTestable : MainContext
     {
+        static string dbDir = @"";
         public MainContextTestable()
-            : base("DefaultTestConnection")
+            : base(@"Data Source=(LocalDb)\v11.0;AttachDbFilename=" + dbDir + @"\dbtest.mdf;Initial Catalog=dbtest;Integrated Security=false")
         {
-
+            
         }
 
         static MainContextTestable()

@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Linq;
+using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using DbLayer.Entities;
 using DbLayer.Interfaces;
-using MietTest.TestCache;
 using DbLayer.Repositories;
-using MietTest.Tests.TestClasses;
 using MietTest.Controllers;
+using MietTest.TestCache;
+using MietTest.Tests.TestClasses;
 
 namespace MietTest.Tests
 {
@@ -15,41 +18,56 @@ namespace MietTest.Tests
         private ITestRepository _repository;
         private ITestCache _cache;
         private TestController _controller;
+        static string userName = "testuser";
 
         [TestInitialize]
         public void Init()
         {
             _cache = new TestMemoryCache();
-            _repository = new EfTestRepository();
-            _repository.SetContext(new MainContextTestable());
+            _repository = new Mock<ITestRepository>(MockBehavior.Loose).Object;
             _controller = new TestController(_repository, _cache);
+
+            var controllerContextMock = new Mock<ControllerContext>();
+            controllerContextMock.SetupGet(p => p.HttpContext.User.Identity.Name).Returns(userName);
+            controllerContextMock.SetupGet(p => p.HttpContext.Request.IsAuthenticated).Returns(true);
+            _controller.ControllerContext = controllerContextMock.Object;
         }
 
-        void Reload()
+
+        [TestMethod]
+        public void MainViewIsNotNull()
         {
-            _cache = new TestMemoryCache();
-            _repository = new EfTestRepository();
-            _repository.SetContext(new MainContextTestable());
-            _controller = new TestController(_repository, _cache);
+            var res = _controller.Create();
+            Assert.IsNotNull(res);
         }
 
         [TestMethod]
-        public void AllowAnyTest()
+        [ExpectedException(typeof(NullReferenceException))]
+        public void GetTestExpectedException()
         {
-            var tests = _repository.GetAll();
-
-            Assert.IsTrue(tests.Any());
+            var result = _controller.GetTest(1);
         }
 
         [TestMethod]
-        public void AllowAnyJsonTest()
+        public void CreateTestAllowResult()
         {
-            var testId = _repository.GetAll().First().Id;
+            var res = _controller.CreateTest(new Test());
+            Assert.IsNotNull(res);
+        }
 
-            var result = _controller.GetTest(testId);
+        [TestMethod]
+        public void StartAllowRedirect()
+        {
+            var res = _controller.Start(1);
+            Assert.IsInstanceOfType(res, typeof(RedirectResult));
+        }
 
-
-            Assert.IsNotNull(result);
+        [TestMethod]
+        public void StartAllowUrlPattern()
+        {
+            var res = _controller.Start(1);
+            string url = ((RedirectResult)res).Url;
+            Assert.IsTrue( url.Contains("Do?id="));
         }
     }
 }

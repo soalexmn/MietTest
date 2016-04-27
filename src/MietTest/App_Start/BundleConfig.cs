@@ -16,7 +16,7 @@ namespace MietTest
 
             var transform = new CssRewriteUrlTransform();
             bundles.Add(new StyleBundle("~/Bundles/css/main")
-                .Include("~/Content/Site.css", transform));
+                .Include("~/Content/Site.css", transform)); 
 
             bundles.Add(new ScriptBundle("~/Bundles/js/main").Include(
                        "~/Scripts/angular.js",

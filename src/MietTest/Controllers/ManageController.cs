@@ -39,7 +39,6 @@ namespace MietTest.Controllers
                 _signInManager = value; 
             }
         }
-        //саша дурачёк
         public MietUserManager UserManager
         {
             get
