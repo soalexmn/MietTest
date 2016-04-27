@@ -11,11 +11,12 @@ namespace DbLayer.Repositories
 {
     public class EfRepository : IRepository
     {
-        protected MainContext _context = new MainContext();
+        protected MainContext _context;
 
 
         public EfRepository()
         {
+            _context = new MainContext();
 #if DEBUG
             _context.Database.Log = (str) => System.Diagnostics.Debug.WriteLine(str);
 #endif

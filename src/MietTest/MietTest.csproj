@@ -189,6 +189,10 @@
     <Compile Include="TestCache\CacheValueModel.cs" />
     <Compile Include="TestCache\ITestCache.cs" />
     <Compile Include="TestCache\TestMemoryCache.cs" />
+    <Compile Include="Verification\IAnswerVerificator.cs" />
+    <Compile Include="Verification\VerifyHelper.cs" />
+    <Compile Include="Verification\VerifyMultiAnswerType.cs" />
+    <Compile Include="Verification\VerifyOneAnswerType.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\Generic\GenericService.js" />

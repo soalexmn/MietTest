@@ -103,6 +103,7 @@
     <Compile Include="TestClasses\MainContextTestableInitializer.cs" />
     <Compile Include="TestTestController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestTestRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\DbLayer\DbLayer.csproj">

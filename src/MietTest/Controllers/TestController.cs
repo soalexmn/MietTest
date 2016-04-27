@@ -2,12 +2,14 @@
 using DbLayer.Interfaces;
 using MietTest.Models;
 using MietTest.TestCache;
+using MietTest.Verification;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace MietTest.Controllers
 {
@@ -31,17 +33,17 @@ namespace MietTest.Controllers
         [Authorize]
         public async Task<ActionResult> CreateTest(Test test)
         {
-            _repository.Add(test,this.User.Identity.Name);
+            _repository.Add(test, this.User.Identity.Name);
             await _repository.SaveChangesAsync();
             return Json(test);
         }
 
-        [OutputCache(Duration=0,NoStore=true,VaryByParam="none")]
+        [OutputCache(Duration = 0, NoStore = true, VaryByParam = "none")]
         [Authorize]
         public ActionResult Start(int id)
         {
             Guid guid = _cache.StartNewTest(this.User.Identity.Name);
-            return Redirect(String.Concat("~/Test/Do?id=",id,"&s=",guid));
+            return Redirect(String.Concat("~/Test/Do?id=", id, "&s=", guid));
         }
 
         [Authorize]
@@ -56,12 +58,12 @@ namespace MietTest.Controllers
         [OutputCache(Duration = 0, NoStore = true, VaryByParam = "none")]
         public ActionResult GetTest(int id)
         {
-           Test test = _repository.GetFullTest(id);
-           foreach (var question in test.Questions)
-           {
-               question.Result = string.Empty;
-           }
-           return Json(test, JsonRequestBehavior.AllowGet);
+            Test test = _repository.GetFullTest(id);
+            foreach (var question in test.Questions)
+            {
+                question.Result = string.Empty;
+            }
+            return Json(test, JsonRequestBehavior.AllowGet);
         }
 
         [Authorize]
@@ -71,9 +73,9 @@ namespace MietTest.Controllers
             try
             {
                 TestResult test = _cache.GetTest(s, this.User.Identity.Name);
-                return Json(test,JsonRequestBehavior.AllowGet);
+                return Json(test, JsonRequestBehavior.AllowGet);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Response.StatusCode = 500;
                 return Json(e.Message, JsonRequestBehavior.AllowGet);
@@ -93,6 +95,20 @@ namespace MietTest.Controllers
                 Response.StatusCode = 500;
                 return Json(e.Message);
             }
+        }
+
+        public ActionResult DoneTest(TestUpdateViewModel model)
+        {
+            
+            var test = _repository.GetFullTest(model.Test.TestId);
+
+            var testResult = model.Test;
+            testResult.End = DateTime.Now;
+            testResult.userId = this.User.Identity.GetUserId();
+            VerifyHelper verificator = new VerifyHelper();
+            testResult = verificator.SetIsCorrect(test, testResult);
+
+            _repository.AddTestResult(testResult)
         }
     }
 }

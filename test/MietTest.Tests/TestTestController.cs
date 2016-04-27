@@ -9,6 +9,7 @@ using DbLayer.Repositories;
 using MietTest.Controllers;
 using MietTest.TestCache;
 using MietTest.Tests.TestClasses;
+using System.Text.RegularExpressions;
 
 namespace MietTest.Tests
 {
@@ -19,6 +20,7 @@ namespace MietTest.Tests
         private ITestCache _cache;
         private TestController _controller;
         static string userName = "testuser";
+        static int testId = 1;
 
         [TestInitialize]
         public void Init()
@@ -45,7 +47,7 @@ namespace MietTest.Tests
         [ExpectedException(typeof(NullReferenceException))]
         public void GetTestExpectedException()
         {
-            var result = _controller.GetTest(1);
+            var result = _controller.GetTest(testId);
         }
 
         [TestMethod]
@@ -58,16 +60,50 @@ namespace MietTest.Tests
         [TestMethod]
         public void StartAllowRedirect()
         {
-            var res = _controller.Start(1);
+            var res = _controller.Start(testId);
             Assert.IsInstanceOfType(res, typeof(RedirectResult));
         }
 
         [TestMethod]
         public void StartAllowUrlPattern()
         {
-            var res = _controller.Start(1);
+            var res = _controller.Start(testId);
             string url = ((RedirectResult)res).Url;
-            Assert.IsTrue( url.Contains("Do?id="));
+            Assert.IsTrue(url.Contains("Do?id="));
+        }
+
+        [TestMethod]
+        public void DoGetParametersAfterRedirect()
+        {
+            var startResult = _controller.Start(testId);
+            string url = ((RedirectResult)startResult).Url;
+            var match = Regex.Match(url, @".*id=(.*)&s=(.*)");
+            var res = _controller.Do(Int32.Parse(match.Groups[1].Value), Guid.Parse(match.Groups[2].Value));
+            Assert.IsNotNull(res);
+        }
+
+        [TestMethod]
+        public void GetTestResultAllowNotNull()
+        {
+            var startResult = _controller.Start(testId);
+            string url = ((RedirectResult)startResult).Url;
+            var match = Regex.Match(url, @".*id=(.*)&s=(.*)");
+
+            var res = _controller.GetTestResult(Guid.Parse(match.Groups[2].Value));
+            Assert.IsNotNull(res);
+        }
+
+
+        [TestMethod]
+        public void UpdateTestResultAllowNotNull()
+        {
+            var startResult = _controller.Start(testId);
+            string url = ((RedirectResult)startResult).Url;
+            var match = Regex.Match(url, @".*id=(.*)&s=(.*)");
+            Guid guid = Guid.Parse(match.Groups[2].Value);
+
+            var res = _controller.UpdateTestResult(new Models.TestUpdateViewModel { Guid = guid, Test = new TestResult() });
+            Assert.IsNotNull(res);
         }
     }
 }
