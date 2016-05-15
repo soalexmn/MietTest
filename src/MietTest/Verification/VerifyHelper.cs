@@ -23,6 +23,7 @@ namespace MietTest.Verification
                 var testQuestion = test.Questions.First(q => q.Id == questionResult.QuestionId);
                 questionResult.IsCorrect = Verify(testQuestion, questionResult.Result);
             }
+            return result;
         }
 
         public bool Verify(Question question, string answer)

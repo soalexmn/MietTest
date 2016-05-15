@@ -7,6 +7,6 @@ namespace MietTest.Verification
 {
     public interface IAnswerVerificator
     {
-        bool Verify(string correctAnswer, string answer)
+        bool Verify(string correctAnswer, string answer);
     }
 }

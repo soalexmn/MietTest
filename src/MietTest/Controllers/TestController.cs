@@ -100,7 +100,7 @@ namespace MietTest.Controllers
         public ActionResult DoneTest(TestUpdateViewModel model)
         {
             
-            var test = _repository.GetFullTest(model.Test.TestId);
+            var test = _repository.GetFullTest((int)model.Test.TestId);
 
             var testResult = model.Test;
             testResult.End = DateTime.Now;
@@ -108,7 +108,9 @@ namespace MietTest.Controllers
             VerifyHelper verificator = new VerifyHelper();
             testResult = verificator.SetIsCorrect(test, testResult);
 
-            _repository.AddTestResult(testResult)
+            _repository.AddTestResult(testResult);
+            _repository.SaveChanges();
+            return Json(testResult);
         }
     }
 }

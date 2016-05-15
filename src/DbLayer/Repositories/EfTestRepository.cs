@@ -23,6 +23,10 @@ namespace DbLayer.Repositories
             return test;
         }
 
+        public void AddTestResult(TestResult testResult)
+        {
+            throw new NotImplementedException();
+        }
 
         public Test GetFullTest(int testId)
         {
