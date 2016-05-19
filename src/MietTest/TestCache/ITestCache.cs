@@ -9,7 +9,7 @@ namespace MietTest.TestCache
 {
     public interface ITestCache
     {
-        Guid StartNewTest(string userName);
+        Guid StartNewTest(string userName, int id);
         TestResult UpdateTest(Guid guid, string userName, TestResult test);
         TestResult GetTest(Guid guid, string userName);
     }

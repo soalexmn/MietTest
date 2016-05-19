@@ -11,11 +11,11 @@ namespace MietTest.TestCache
     {
         private ConcurrentDictionary<Guid, CacheValueModel> _dictionary = new ConcurrentDictionary<Guid, CacheValueModel>();
 
-        public Guid StartNewTest(string userName)
+        public Guid StartNewTest(string userName, int id)
         {
             Guid guid = Guid.NewGuid();
-            bool res = _dictionary.TryAdd(guid, new CacheValueModel { UserName = userName, Test = null });
-            if(res == false) throw new Exception("cache start new exception");
+            bool res = _dictionary.TryAdd(guid, new CacheValueModel { UserName = userName, Test = new TestResult { Start = DateTime.Now , TestId = id } });
+            if (res == false) throw new Exception("cache start new exception");
             return guid;
         }
 

@@ -11,7 +11,8 @@ namespace DbLayer.Entities
         [Key]
         public int Id { get; set; }
 
-        public int QuestionId { get; set; }
+        public int? QuestionId { get; set; }
+        public Question Question { get; set; }
 
         public bool IsCorrect { get; set; }
         public string Result { get; set; }

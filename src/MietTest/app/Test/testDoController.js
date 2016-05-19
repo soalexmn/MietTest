@@ -55,6 +55,32 @@ function testDoController($scope, $window, genericService) {
                 });
     }
 
+    $scope.updateResult = function()
+    {
+        genericService.customQuery('/Test/UpdateTestResult', { Guid: $scope.guid, Test: $scope.testResult }).then(
+                function (results) {
+                    // on success
+                },
+                function (results) {
+                    // on error
+                    //alertService.showAlert(results);
+                    $scope.hasFormError = true;
+                });
+    }
+
+    $scope.doneTest = function () {
+        genericService.customQuery('/Test/DoneTest', { Guid: $scope.guid, Test: $scope.testResult }).then(
+                function (results) {
+                    // on success
+                    $scope.testResult = results.data;
+                },
+                function (results) {
+                    // on error
+                    //alertService.showAlert(results);
+                    $scope.hasFormError = true;
+                });
+    };
+
 
 
     var findById = function (array, id) {

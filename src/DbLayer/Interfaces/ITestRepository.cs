@@ -14,5 +14,7 @@ namespace DbLayer.Interfaces
         Test GetFullTest(int testId);
 
         void AddTestResult(TestResult testResult);
+
+        TestResult GetFullTestResult(int id);
     }
 }

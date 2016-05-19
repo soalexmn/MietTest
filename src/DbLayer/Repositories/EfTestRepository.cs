@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DbLayer.Repositories
 {
-    public class EfTestRepository : EfGenericRepository<Test>,ITestRepository
+    public class EfTestRepository : EfGenericRepository<Test>, ITestRepository
     {
         public override Test Add(Test entity)
         {
@@ -34,6 +34,16 @@ namespace DbLayer.Repositories
                 .Include("Questions")
                 .Include("Questions.AnswerVariants")
                 .First(t => t.Id == testId);
+        }
+
+
+        public TestResult GetFullTestResult(int id)
+        {
+            return Context.TestResults
+                .Include(p => p.QuestionResults)
+                .Include(p => p.QuestionResults.Select(r => r.Question))
+                .Include(p => p.Test)
+                .First(p => p.Id == id);
         }
     }
 }
