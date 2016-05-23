@@ -34,7 +34,9 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Тесты <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Новый тест", "Create", "Test", new { area = "" }, null)</li>
-                            @*<li class="divider"></li>*@
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink("Результаты", "Results", "Home", new { area = "" }, null)</li>
+
                             @*<li>@Html.ActionLink("Добавить заказчика", "Customer", "Customer", new { area = "" }, null)</li>*@
                         </ul>
                     </li>

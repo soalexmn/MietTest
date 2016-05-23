@@ -1,7 +1,26 @@
 ﻿
 @{
-    ViewBag.Title = "Result";
+    ViewBag.Title = @"Результат теста - {{testResult.Test.Title}}";
 }
+<br />
+<br />
+<br />
+<div class="panel panel-primary" ng-controller="testDoController">
+    <div class="panel-body" ng-init="loadResultVerified(@ViewBag.Id)">
+        <h3>{{testResult.Test.Title}}</h3>
+        <h4>{{testResult.Test.Description}}</h4>
+        <table class="table table-responsive">
+            <tr>
+                <th>№</th>
+                <th>Вопрос</th>
+            </tr>
+            <tr ng-repeat="questionResult in testResult.QuestionResults" ng-class="{'success':questionResult.IsCorrect, 'danger': !questionResult.IsCorrect}">
+                <td>{{$index + 1}}</td>
+                <td>{{questionResult.Question.Body}}</td>
+            </tr>
+        </table>
 
-<h2>Result</h2>
+    </div>
+</div>
+
 

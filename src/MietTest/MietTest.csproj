@@ -189,6 +189,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="TestCache\CacheValueModel.cs" />
     <Compile Include="TestCache\ITestCache.cs" />
+    <Compile Include="TestCache\TestGuidModel.cs" />
     <Compile Include="TestCache\TestMemoryCache.cs" />
     <Compile Include="Verification\IAnswerVerificator.cs" />
     <Compile Include="Verification\VerifyHelper.cs" />
@@ -1058,6 +1059,7 @@
     <Content Include="Views\Test\Create.cshtml" />
     <Content Include="Views\Test\Do.cshtml" />
     <Content Include="Views\Test\Result.cshtml" />
+    <Content Include="Views\Home\Results.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

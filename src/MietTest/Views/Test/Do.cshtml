@@ -8,10 +8,10 @@
 <div class="panel panel-primary" ng-controller="testDoController">
     <div class="panel-body" ng-init="initialLoad(@ViewBag.Id,'@ViewBag.Guid')">
         <div class="col-sm-12">
-            <a href="#" class="btn btn-primary" ng-click="changeIndex(-1)">
+            <a href="#" class="btn btn-primary" ng-click="changeIndex(-1);updateResult()">
                 Основная информация
             </a>
-            <a href="#" class="btn btn-default" ng-click="updateResult();changeIndex($index)" ng-repeat="question in test.Questions" uib-tooltip="вопрос №{{$index + 1}}" tooltip-placement="bottom">
+            <a href="#" class="btn btn-default" ng-click="changeIndex($index);updateResult()" ng-repeat="question in test.Questions" uib-tooltip="вопрос №{{$index + 1}}" tooltip-placement="bottom">
                 {{$index + 1}}
             </a>
         </div>
@@ -35,14 +35,14 @@
             <table class="table">
                 <tr ng-repeat="variant in currentQuestion.AnswerVariants">
                     <td class="col-sm-1">
-                        <input type="radio" name="answer" ng-model="selected" value="$index" ng-if="currentQuestion.QuestionType == 0" />
-                        <input type="checkbox" ng-model="selected" ng-if="currentQuestion.QuestionType == 1" />
+                        <input type="radio" name="answer" ng-model="currentQuestion.Result" value="{{$index}}" ng-if="currentQuestion.QuestionType == 0" />
+                        <input type="checkbox" ng-model="variant.Result" value="{{$index}}" ng-if="currentQuestion.QuestionType == 1" />
                     </td>
                     <td class="col-sm-10">{{variant.Body}}</td>
                 </tr>
             </table>
-            <button class="btn btn-default" ng-show="currentIndex + 1 < test.Questions.length" ng-click="updateResult();changeIndex(currentIndex + 1)">Следующий вопрос</button>
-            <button class="btn btn-default" ng-show="currentIndex + 1 == test.Questions.length" ng-click="doneTest()">Закончить тест</button>
+            <button class="btn btn-default" ng-show="currentIndex + 1 < test.Questions.length" ng-click="changeIndex(currentIndex + 1);updateResult()">Следующий вопрос</button>
+            <button class="btn btn-default" ng-show="currentIndex + 1 == test.Questions.length" ng-click="changeIndex(-1);doneTest()">Закончить тест</button>
 
         </div>
 

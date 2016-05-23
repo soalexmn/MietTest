@@ -17,6 +17,7 @@ namespace DbLayer.Entities
         public Question()
         {
             AnswerVariants = new List<AnswerVariant>();
+            QuestionResults = new List<QuestionResult>();
         }
         [Key]
         public int Id { get; set; }
@@ -26,6 +27,8 @@ namespace DbLayer.Entities
         public QuestionType QuestionType { get; set; }
 
         public ICollection<AnswerVariant> AnswerVariants { get; set; }
+
+        public ICollection<QuestionResult> QuestionResults { get; set; }
 
         public string Result { get; set; }
     }

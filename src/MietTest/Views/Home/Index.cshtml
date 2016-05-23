@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Главная страница";
 }
 
 <div class="jumbotron">
@@ -15,29 +15,29 @@
             </tr>
         }
     </table>
-    @*<label>Начатые тесты:</label>
+    <label>Начатые тесты:</label>
     <table class="table">
         @foreach (var test in ViewBag.RunTests)
         {
             <tr>
-                <td class="col-sm-7">@test.Title</td>
-                <td class="col-sm-2">@test.User.UserName</td>
+                <td class="col-sm-7">@test.Test.Test.Title</td>
                 <td class="col-sm-3">
-                    <a href="~/Test/Start?id=@test.Id">Пройти тест</a>
+                    <a href="~/Test/Do?id=@test.Test.Test.Id&s=@test.Guid">Продолжить тест</a>
                 </td>
             </tr>
         }
-    </table>*@
-
+    </table>
+    @if(ViewBag.RunTests.Length == 0)
+    {
+        <h4>Нету начатых тестов</h4>
+    }
 </div>
 
 <div class="row">
     <div class="col-md-4">
         <h2>Создание тестов</h2>
         <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
+            Конструктор для создания нового теста, задайте основную информацию по тесту а также любое количество вопросов.
         </p>
         <p><a class="btn btn-default" href="~/Test/Create">Создать &raquo;</a></p>
     </div>

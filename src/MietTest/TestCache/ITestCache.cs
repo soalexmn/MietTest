@@ -12,5 +12,9 @@ namespace MietTest.TestCache
         Guid StartNewTest(string userName, int id);
         TestResult UpdateTest(Guid guid, string userName, TestResult test);
         TestResult GetTest(Guid guid, string userName);
+
+        TestGuidModel[] GetTests(string userName);
+
+        void Remove(Guid guid);
     }
 }

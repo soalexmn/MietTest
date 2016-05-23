@@ -23,9 +23,14 @@ namespace DbLayer.Repositories
             return test;
         }
 
-        public void AddTestResult(TestResult testResult)
+        public void AddTestResult(TestResult testResult,bool save = true)
         {
-            throw new NotImplementedException();
+            int testId = (int)testResult.TestId;
+            var test = Context.Tests
+                .Include(p => p.TestResults)
+                .First(p => p.Id == testId);
+
+            test.TestResults.Add(testResult);
         }
 
         public Test GetFullTest(int testId)
@@ -39,11 +44,13 @@ namespace DbLayer.Repositories
 
         public TestResult GetFullTestResult(int id)
         {
-            return Context.TestResults
+            var res = Context.TestResults
                 .Include(p => p.QuestionResults)
                 .Include(p => p.QuestionResults.Select(r => r.Question))
                 .Include(p => p.Test)
                 .First(p => p.Id == id);
+            res.QuestionResults = res.QuestionResults.OrderBy(r => r.QuestionId).ToList();
+            return res;
         }
     }
 }

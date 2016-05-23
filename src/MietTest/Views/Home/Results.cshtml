@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "Пройденные мной тесты";
+}
+
+<div class="jumbotron">
+    <table class="table">
+        @foreach (var test in ViewBag.Tests)
+        {
+            <tr>
+                <td class="col-sm-8">
+                    <a href="~/Test/Result?id=@test.Id">@test.Test.Title - @test.End</a>
+                </td>
+            </tr>
+        }
+    </table>
+
+</div>
+

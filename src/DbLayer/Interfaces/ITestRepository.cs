@@ -13,7 +13,7 @@ namespace DbLayer.Interfaces
 
         Test GetFullTest(int testId);
 
-        void AddTestResult(TestResult testResult);
+        void AddTestResult(TestResult testResult, bool save = true);
 
         TestResult GetFullTestResult(int id);
     }

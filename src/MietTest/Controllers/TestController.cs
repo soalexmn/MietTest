@@ -32,8 +32,10 @@ namespace MietTest.Controllers
         }
 
         [Authorize]
-        public ActionResult Result()
+        [NoCache]
+        public ActionResult Result(int id)
         {
+            ViewBag.Id = id;
             return View();
         }
 
@@ -45,8 +47,9 @@ namespace MietTest.Controllers
             return Json(test);
         }
 
-        [OutputCache(Duration = 0, NoStore = true, VaryByParam = "none")]
+        
         [Authorize]
+        [NoCache]
         public ActionResult Start(int id)
         {
             Guid guid = _cache.StartNewTest(this.User.Identity.Name, id);
@@ -94,6 +97,8 @@ namespace MietTest.Controllers
         {
             try
             {
+                var testBefore = _cache.GetTest(model.Guid, this.User.Identity.Name);
+                model.Test.Start = testBefore.Start;
                 TestResult test = _cache.UpdateTest(model.Guid, this.User.Identity.Name, model.Test);
                 return new ContentResult
                 {
@@ -109,6 +114,7 @@ namespace MietTest.Controllers
             }
         }
 
+        [Authorize]
         public ActionResult DoneTest(TestUpdateViewModel model)
         {
 
@@ -116,13 +122,16 @@ namespace MietTest.Controllers
             var testResultBefore = _cache.GetTest(model.Guid, this.User.Identity.Name);
 
             var testResult = model.Test;
+            testResult.Start = testResultBefore.Start;
             testResult.End = DateTime.Now;
             testResult.userId = this.User.Identity.GetUserId();
             VerifyHelper verificator = new VerifyHelper();
             testResult = verificator.SetIsCorrect(test, testResult);
-
+            testResult.Test = null;
             _repository.AddTestResult(testResult);
             _repository.SaveChanges();
+
+            _cache.Remove(model.Guid);
             return Json(testResult);
         }
 
@@ -131,7 +140,12 @@ namespace MietTest.Controllers
         public ActionResult GetResult(int id)
         {
             var res = _repository.GetFullTestResult(id);
-            return Json(res);
+            return new ContentResult
+            {
+                Content = JsonConvert.SerializeObject(res, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore }),
+                ContentType = "application/json",
+                ContentEncoding = System.Text.Encoding.UTF8
+            };
         }
     }
 }

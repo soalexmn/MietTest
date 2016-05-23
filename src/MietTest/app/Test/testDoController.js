@@ -20,9 +20,44 @@ function testDoController($scope, $window, genericService) {
     }
 
     $scope.changeIndex = function (index) {
+
+        if ($scope.currentIndex >= 0) {
+            if ($scope.currentQuestion.QuestionType == 0) {
+                $scope.currentQuestionResult.Result = $scope.currentQuestion.Result;
+            }
+            else if ($scope.currentQuestion.QuestionType == 1) {
+                var result = [];
+                for (var i = 0; i < $scope.currentQuestion.AnswerVariants.length; i++) {
+                    var variant = $scope.currentQuestion.AnswerVariants[i];
+                    if (variant.Result == true) {
+                        result.push(i);
+                    }
+
+                }
+                $scope.currentQuestionResult.Result = result.join();
+            }
+        }
+
         $scope.currentIndex = index;
         $scope.currentQuestion = $scope.test.Questions[index];
-        $scope.currentQuestionResult = $scope.testResult.QuestionResults[index];
+
+        if ($scope.testResult.QuestionResults[index] == undefined && index >= 0) {
+            var questionResult = { QuestionId: $scope.currentQuestion.Id };
+            $scope.testResult.QuestionResults[index] = questionResult;
+        }
+        if (index >= 0) {
+            $scope.currentQuestionResult = $scope.testResult.QuestionResults[index];
+            if ($scope.currentQuestion.QuestionType == 0) {
+                $scope.currentQuestion.Result = $scope.currentQuestionResult.Result;
+            }
+            else if ($scope.currentQuestion.QuestionType == 1) {
+                var result = $scope.currentQuestionResult.Result.split(',');
+                for (var i = 0; i < result.length; i++) {
+                    $scope.currentQuestion.AnswerVariants[result[i]].Result = true;
+                }
+
+            }
+        }
     }
 
     $scope.copyObject = function (object) {
@@ -55,8 +90,7 @@ function testDoController($scope, $window, genericService) {
                 });
     }
 
-    $scope.updateResult = function()
-    {
+    $scope.updateResult = function () {
         genericService.customQuery('/Test/UpdateTestResult', { Guid: $scope.guid, Test: $scope.testResult }).then(
                 function (results) {
                     // on success
@@ -72,7 +106,7 @@ function testDoController($scope, $window, genericService) {
         genericService.customQuery('/Test/DoneTest', { Guid: $scope.guid, Test: $scope.testResult }).then(
                 function (results) {
                     // on success
-                    $scope.testResult = results.data;
+                    $window.location = '/Test/Result?id' + results.data.Id;
                 },
                 function (results) {
                     // on error
@@ -80,6 +114,20 @@ function testDoController($scope, $window, genericService) {
                     $scope.hasFormError = true;
                 });
     };
+
+
+    $scope.loadResultVerified = function (id) {
+        genericService.customQuery('/Test/GetResult?id=' + id).then(
+                function (results) {
+                    // on success
+                    $scope.testResult = results.data;
+                },
+                function (results) {
+                    // on error
+                    //alertService.showAlert(results);
+                    $scope.hasFormError = true;
+                });
+    }
 
 
 
