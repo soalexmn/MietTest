@@ -13,9 +13,11 @@ namespace DbLayer.Entities
         {
             Tests = new List<Test>();
             TestResults = new List<TestResult>();
+            Groups = new List<Group>();
         }
 
         public ICollection<Test> Tests { get; set; }
         public ICollection<TestResult> TestResults { get; set; }
+        public ICollection<Group> Groups { get; set; }
     }
 }

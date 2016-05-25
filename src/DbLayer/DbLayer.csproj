@@ -62,6 +62,8 @@
   <ItemGroup>
     <Compile Include="Contexts\MainContext.cs" />
     <Compile Include="Entities\AnswerVariant.cs" />
+    <Compile Include="Entities\Group.cs" />
+    <Compile Include="Entities\NeedTest.cs" />
     <Compile Include="Entities\Question.cs" />
     <Compile Include="Entities\QuestionResult.cs" />
     <Compile Include="Entities\Role.cs" />
