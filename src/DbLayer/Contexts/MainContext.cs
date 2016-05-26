@@ -67,5 +67,7 @@ namespace DbLayer.Contexts
         public virtual DbSet<TestResult> TestResults { get; set; }
         public virtual DbSet<QuestionResult> QuestionResults { get; set; }
         public virtual DbSet<AnswerVariant> AnswerVariants { get; set; }
+        public virtual DbSet<NeedTest> NeedTests { get; set; }
+        public virtual DbSet<Group> Groups { get; set; }
     }
 }
